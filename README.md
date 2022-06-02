@@ -153,7 +153,7 @@ Secara default fitur *autoroute* pada Codeigniter sudah aktif. Untuk mengubah st
 
 Method ini belum ada pada **routing**, sehingga cara mengaksesnya dengan menggunakan alamat url: http://localhost:8080/page/tos/
 
-## 9). MEMBUAT VIEW 
+## 10). MEMBUAT VIEWS 
 Selanjutnya adalah membuat view untuk tampilan web agar lebih menarik. Buat file baru dengan nama **about.php** pada direktori view (**app/view/about.php**) kemudian isi kodenya seperti berikut.
 
 ```php
@@ -177,5 +177,94 @@ Ubah **method about** pada class **Controller Page** menjadi seperti berikut:
 
 Maka hasil nya akan seperti ini dibrowser
 
+![view-about](img/view-about.png)
+
+## 11). MEMBUAT LAYOUT WEB DENGAN CSS
+Pada dasarnya layout web dengan css dapat diimplementasikan dengan mudah pada codeigniter. Yang perlu diketahui adalah, pada Codeigniter 4 file yang menyimpan asset css dan javascript terletak pada direktori **public.**
+
+Buat file css pada direktori **public** dengan nama **style.css** (copy file dari praktikum **lab4_layout**) Kita akan gunakan layout yang pernah dibuat pada praktikum 4.
+
+![file-css](img/file-css.png)
+
+Kemudian buat folder **template** pada direktori **view** kemudian buat file **header.php** dan **footer.php**
+
+Seperti dibawah ini
+
+![folder-template](img/folder-template.png)
+
+Dan tambahkan file didalam nya.
+
+**header.php**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('/style.css');?>">
+</head>
+<body>
+    <div id="container">
+    <header>
+        <h1>Layout Sederhana</h1>
+    </header>
+    <nav>
+        <a href="<?= base_url('/');?>" class="active">Home</a>
+        <a href="<?= base_url('/artikel');?>">Artikel</a>
+        <a href="<?= base_url('/about');?>">About</a>
+        <a href="<?= base_url('/contact');?>">Kontak</a>
+    </nav>
+    <section id="wrapper">
+        <section id="main">
+```
+
+**footer.php**
+
+```html
+</section>
+            <aside id="sidebar">
+                <div class="widget-box">
+                    <h3 class="title">Widget Header</h3>
+                    <ul>
+                        <li><a href="#">Widget Link</a></li>
+                        <li><a href="#">Widget Link</a></li>
+                    </ul>
+                </div>
+                <div class="widget-box">
+                    <h3 class="title">Widget Text</h3>
+                    <p>Vestibulum lorem elit, iaculis in nisl volutpat, malesuada
+                    tincidunt arcu. Proin in leo fringilla, vestibulum mi porta, faucibus felis.
+                    Integer pharetra est nunc, nec pretium nunc pretium ac.</p>
+                </div>
+            </aside>
+        </section>
+    <footer>
+        <p>&copy; 2022 - Universitas Pelita Bangsa</p>
+    </footer>
+    </div>
+</body>
+</html>
+```
+
+Kemudian ubah file **app/views/about.php** seperti berikut
+
+**about.php**
+
+```php
+<?= $this->include('template/header'); ?>
+
+<h1><?= $title; ?></h1>
+<hr>
+<p><?= $content; ?></p>
+
+<?= $this->include('template/footer'); ?>
+```
+
+Kemudian refresh dan lihat kembali hasilnya pada browser
+
+Maka tampilannya akan seperti berikut.
+
+![tampilan-about](img/tampilan-about.png)
 
 
