@@ -117,13 +117,65 @@ $routes->get('/faqs', 'Page::faqs');
 
 **PENJELASAN**
 
-Untuk mengetahui route yang ditambahkan sudah benar, buka CLI dan jalankan perintah beriku.
+Untuk mengetahui route yang ditambahkan sudah benar, buka CLI dan jalankan perintah berikut.
 
 ```CLI
 php spark routes
 ```
+![php-spark-routes](img/cli-routes.png)
+
+**PENJELASAN**
+
+Selanjutnya coba akses route yang telah dibuat dengan mengakses alamat url: http://localhost:8080/about
+
+![localhost-about](img/localhost-about.png)
+
+**PENJELASAN**
+
+Ketika diakses akan muncul tampilan erorr 404 file not found, itu artinya file/page tersebut tidak ada. Untuk mengakses halaman tersebut, harus dibuat terlebih dahulu Controller yang sesuai dengan routing yang dibuat yaitu Controller Page.
+
+## 8). MEMBUAT CONTROLLER
+Selanjutnya adalah membuat Controller Page. Buat file dengan nama **page.php** pada direktori Controller kemudian isi kodenya seperti berikut.
+
+![about-page](img/about-page.png)
+
+**PENJELASAN**
+
+Refresh kembali browser,maka akan ditampilkan hasilnya seperti diatas,dan halaman sudah dapat di akses.
 
 
+## 9). AUTO ROUTING
+Secara default fitur *autoroute* pada Codeigniter sudah aktif. Untuk mengubah status autoroute dapat mengubah nilai variablenya. Untuk menonaktifkan ubah nilai **true** menjadi **false**
+
+![page-tos](img/page-tos.png)
+
+**PENJELASAN**
+
+Method ini belum ada pada **routing**, sehingga cara mengaksesnya dengan menggunakan alamat url: http://localhost:8080/page/tos/
+
+## 9). MEMBUAT VIEW 
+Selanjutnya adalah membuat view untuk tampilan web agar lebih menarik. Buat file baru dengan nama **about.php** pada direktori view (**app/view/about.php**) kemudian isi kodenya seperti berikut.
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+</head>
+<body>
+    <h1><?= $title; ?></h1>
+    <hr>
+    <p><?= $content; ?></p>
+</body>
+</html>
+```
+![code-about](img/code-about.png)
+
+Ubah **method about** pada class **Controller Page** menjadi seperti berikut:
+![controller-page](img/controller.php.png)
+
+Maka hasil nya akan seperti ini dibrowser
 
 
 
