@@ -267,4 +267,29 @@ Maka tampilannya akan seperti berikut.
 
 ![tampilan-about](img/tampilan-about.png)
 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
+
+## PERTANYAAN DAN TUGAS 
+Lengkapi kode program untuk menu lainnya yang ada pada Controller Page, sehingga semua link pada navigasi header dapat menampilkan tampilan dengan layout yang sama.
+
+**Hasil**
+
+![halaman-about](img/halaman-about.png)
+
+**PENJELASAN**
+
+Di atas adalah halaman About
+
+![halaman-contact](img/halaman-contact.png)
+
+**PENJELASAN**
+
+Buat file baru pada **views** dengan nama file **contact.php** dan juga ubah pada **Controller** dibagian file **page.php** dengan menambahkan **include footer/header**
+
+
+## UNTUK PERTEMUAN KALI INI CUKUP SAMPAI DISINI DAN SAMPAI BERTEMU DI PERTEMUAN BERIKUTNYA
+
+## TERIMAKASIH
+
+## @HERLIYANSYAH
