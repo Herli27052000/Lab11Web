@@ -1,7 +1,26 @@
-<?= $this->include('template/header'); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+</head>
+<body>
+    <?= $this->include('template/header'); ?>
+    <section id="kontak">
+            <div class="login">
+                <input type="text" placeholder="Your Name" class="input">
+                <input type="text" placeholder="Your Email Address" class="input">
+            </div>
 
-<h1><?= $title; ?></h1>
-<hr>
-<p><?= $content; ?></p>
+            <div class="subject">
+                <input type="text" placeholder="Subject" class="input">
+            </div>
 
-<?= $this->include('template/footer'); ?>
+            <div class="msg">
+                <textarea class="area" cols="35" rows="10" placeholder="Your Message" class="input"></textarea>
+            </div>
+
+            <button type="submit"> Send </button>
+        </section>
+    <?= $this->include('template/footer'); ?>
+</body>
