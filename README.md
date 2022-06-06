@@ -288,6 +288,61 @@ Di atas adalah halaman About
 Buat file baru pada **views** dengan nama file **contact.php** dan juga ubah pada **Controller** dibagian file **page.php** dengan menambahkan **include footer/header**
 
 
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+|   HERLIYANSYAH        |       312010387       |
+|-----------------------|-----------------------|
+|   TI.20.A.2           |   PEMROGRAMAN WEB     |
+|   PERTEMUAN 13        |   PRAKTIKUM 12        |
+
+
+## PERTEMUAN 13
+
+## LAB 11 WEB (***MELANJUTKAN SEBELUMNYA***)
+
+## PRAKTIKUM 12 - FRAMEWORK LANJUTAN (CRUD)
+
+Dipertemuan kali ini kita akan melanjutkan tugas sebelum nya pada **praktikum 11** di **Lab11Web** dengan menggunakan **php framework** **CodeIgniter 4** Pertemuan kali ini kita akan mempelajari membuat (**CRUD**) pada Framework CI4.
+
+
+## LANGKAH - LANGKAH PRAKTIKUM
+
+## PERSIAPAN
+Untuk memulai membuat aplikasi CRUD sederhana, yang perlu dipersiapkan adalah database server menggunakan MySQL. pastikan MySQL server sudah dapat dijalankan melalui XAMPP.
+
+## 1). MEMBUAT DATABASE
+![create-database](img/create-database.png)
+
+**PENJELASAN**
+
+Membuat Database
+
+```mySQL
+CREATE DATABASE lab_ci4;
+```
+
+## 2). MEMBUAT TABEL
+![create-table](img/create-table.png)
+
+**PENJELASAN** 
+
+Membuat tabel 
+
+![database-artikel](img/database-artikel.png)
+
+Database berhasil dibuat
+
+
+
+
+
+
+
+
+
+
 ## UNTUK PERTEMUAN KALI INI CUKUP SAMPAI DISINI DAN SAMPAI BERTEMU DI PERTEMUAN BERIKUTNYA
 
 ## TERIMAKASIH
