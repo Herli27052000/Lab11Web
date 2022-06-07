@@ -1,0 +1,14 @@
+ERROR - 2022-06-06 09:49:17 --> Error connecting to the database: Unknown database 'ci4'
+CRITICAL - 2022-06-06 09:49:17 --> Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ci4'
+#0 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\Database\BaseConnection.php(577): CodeIgniter\Database\BaseConnection->initialize()
+#1 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\Database\BaseBuilder.php(1455): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\Model.php(183): CodeIgniter\Database\BaseBuilder->get()
+#3 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\BaseModel.php(584): CodeIgniter\Model->doFindAll(0, 0)
+#4 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\app\Controllers\artikel.php(13): CodeIgniter\BaseModel->findAll()
+#5 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(832): App\Controllers\Artikel->index()
+#6 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Artikel))
+#7 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#9 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#10 {main}

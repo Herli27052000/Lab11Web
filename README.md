@@ -326,6 +326,17 @@ CREATE DATABASE lab_ci4;
 ## 2). MEMBUAT TABEL
 ![create-table](img/create-table.png)
 
+```mySQL
+CREATE TABLE artikel (
+   id INT(11) auto_increment,
+   judul VARCHAR(200) NOT NULL,
+   isi TEXT,
+   gambar VARCHAR(200),
+   status TINYINT(1) DEFAULT 0,
+   slug VARCHAR(200),
+   PRIMARY KEY(id)
+);
+```
 **PENJELASAN** 
 
 Membuat tabel 
@@ -334,9 +345,232 @@ Membuat tabel
 
 Database berhasil dibuat
 
+## 3). KONFIGURASI KONEKSI DATABASE
+Konfigurasi dapat dilakukan dengan dua cara,yaitu pada file **app/config/database.php** atau menggunakan file **.env**. Pada praktikum ini kita gunakan konfigurasi pada file .env.
+
+![konfigurasi-database](img/konfigurasi-database.png)
+
+**PENJELASAN**
+
+Hapus tanda **#** pada bagian database seperti di atas di file **.env**
+
+## 4). MEMBUAT MODEL
+Selanjutnya membuat Model untuk memproses data Artikel. Buat file baru pada direktori **app/Models** dengan nama **ArtikelModel.php**
+
+![artikel-models](img/artikel-models.png)
+
+**code ArtikelModel**
+```php
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class ArtikelModel extends Model
+{
+    protected $table = 'artikel';
+    protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
+    protected $allowedFields = ['judul', 'isi', 'status', 'slug', 'gambar'];
+}
+```
+
+## 5). MEMBUAT CONTROLLER
+Buat Controller baru dengan nama **Artikel.php** pada direktori **app/Controllers.**
+
+![artikel-Controllers](img/artikel-controllers.png)
+
+**code Artikel.php**
+```php
+<?php
+
+namespace App\Controllers;
+
+use App\Models\ArtikelModel;
+
+class Artikel extends BaseController
+{
+    public function index()
+    {
+        $title = 'Daftar Artikel';
+        $model = new ArtikelModel();
+        $artikel = $model->findAll();
+        return view('artikel/index', compact('artikel', 'title'));
+    }
+}
+```
+
+## 6). MEMBUAT VIEW
+Buat direktori baru dengan nama **artikel** pada direktori **app/views,** kemudian buat file baru dengan nama **index.php.**
 
 
+**code index.php**
+```php
+<?= $this->include('template/header'); ?>
 
+<?php if($artikel): foreach($artikel as $row): ?>
+<article class="entry">
+    <h2><a href="<?= base_url('/artikel/' . $row['slug']);?>"><?=$row['judul']; ?></a></h2>
+    <img src="<?= base_url('/gambar/' . $row['gambar']);?>" alt="<?=$row['judul']; ?>">
+    <p><?= substr($row['isi'], 0, 200); ?></p>
+</article>
+<hr class="divider" />
+<?php endforeach; else: ?>
+<article class="entry">
+    <h2>Belum ada data.</h2>
+</article>
+<?php endif; ?>
+
+<?= $this->include('template/footer'); ?>
+```
+
+Kemudian Refresh kembali pada browser maka tampilannya akan seperti  gambar dibawah, belum ada data karena belum melakukan insert pada database. URL: http://localhost:8080/artikel
+
+
+![localhost-artikel](img/localhost-artikel.png)
+
+**PENJELASAN**
+
+Belum ada data yang ditampilkan. Kemudian coba tambahkan beberapa data pada database agar dapat ditampilkan datanya.
+
+![insert](img/insert.png)
+
+**PENJELASAN**
+
+Insert atau tambah data pada database dan tabel artikel kemudian refresh kembali pada browser dan tampilannya akan seperti gambar dibawah.
+
+![setelah-insert](img/setelah-insert.png)
+Tampilan Artikel
+
+
+## 7). MEMBUAT TAMPILAN DETAIL ARTIKEL
+Tampilan pada saat judul berita di klik maka akan diarahkan ke halaman yang berbeda. Tambahkan fungsi baru pada **Controller Artikel** dengan nama **view().**
+
+![code-artikel](img/code-artikel.png)
+
+**code view() pada artikel.php**
+```php
+public function view($slug)
+    {
+        $model = new ArtikelModel();
+        $artikel = $model->where(['slug' => $slug])->first();
+        
+        // Menampilkan error apabila data tidak ada.
+        if (!$artikel)
+        {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        $title = $artikel['judul'];
+        return view('artikel/detail', compact('artikel', 'title'));
+    }
+```
+
+## 8). MEMBUAT VIEW DETAIL
+Buat view baru untuk halaman detail dengan nama **app/views/artikel/detail.php**
+
+![view-detail](img/view-detail.png)
+
+**code detail.php**
+```php
+<?= $this->include('template/header'); ?>
+
+<article class="entry">
+    <h2><?= $artikel['judul']; ?></h2>
+    <img src="<?= base_url('/gambar/' . $artikel['gambar']);?>" alt="<?=$artikel['judul']; ?>">
+    <p><?= $artikel['isi']; ?></p>
+</article>
+
+<?= $this->include('template/footer'); ?>
+```
+
+## 9). MEMBUAT ROUTING UNTUK ARTIKEL DETAIL
+Buka Kembali file **app/config/Routes.php** kemudian tambahkan routing untuk artikel detail.
+
+**code routing**
+```php
+$routes->get('/artikel/(:any)', 'Artikel::view/$1');
+```
+
+![routes-artikel](img/routing-artikel.png)
+
+Kemudian refresh dan klik pada bagian link **Artikel pertama** atau pun **Artikel kedua**
+
+![artikel-pertama](img/artikel-pertama.png)
+
+Di atas adalah contoh Detail artikel pertama
+
+![artikel-kedua](img/artikel-kedua.png)
+
+Di atas adalah contoh Detail artikel kedua
+
+## 10). MEMBUAT MENU ADMIN
+Menu admin adalah untuk proses CRUD data artikel. Buat method baru pada **Controller Artikel** dengan nama **admin_index().**
+
+![admin_index()](img/admin_index().png)
+
+**code admin_index()**
+```php
+public function admin_index()
+    {
+        $title = 'Daftar Artikel';
+        $model = new ArtikelModel();
+        $artikel = $model->findAll();
+        return view('artikel/admin_index', compact('artikel', 'title'));
+    }
+```
+
+Selanjutnya buat view untuk tampilan admin dengan nama **admin_index.php**
+
+![code-admin-index()](img/code-admin-index().png)
+
+**code admin_index.php**
+```php
+<?= $this->include('template/admin_header'); ?>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php if($artikel): foreach($artikel as $row): ?>
+    <tr>
+        <td><?= $row['id']; ?></td>
+        <td>
+            <b><?= $row['judul']; ?></b>
+            <p><small><?= substr($row['isi'], 0, 50); ?></small></p>
+        </td>
+        <td><?= $row['status']; ?></td>
+        <td>
+            <a class="btn" href="<?= base_url('/admin/artikel/edit/' .$row['id']);?>">Ubah</a>
+            <a class="btn btn-danger" onclick="return confirm('Yakin menghapus data?');" href="<?= base_url('/admin/artikel/delete/' .$row['id']);?>">Hapus</a>
+        </td>
+    </tr>
+    <?php endforeach; else: ?>
+    <tr>
+        <td colspan="4">Belum ada data.</td>
+    </tr>
+    <?php endif; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </tfoot>
+</table>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+
+Tambahkan routing untuk menu admin seperti berikut:
 
 
 
