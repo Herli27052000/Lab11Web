@@ -520,7 +520,7 @@ public function admin_index()
     }
 ```
 
-Selanjutnya buat view untuk tampilan admin dengan nama **admin_index.php**
+* Selanjutnya buat view untuk tampilan admin dengan nama **admin_index.php**
 
 ![code-admin-index()](img/code-admin-index().png)
 
@@ -570,8 +570,121 @@ Selanjutnya buat view untuk tampilan admin dengan nama **admin_index.php**
 <?= $this->include('template/admin_footer'); ?>
 ```
 
-Tambahkan routing untuk menu admin seperti berikut:
+* Tambahkan routing untuk menu admin seperti berikut:
+![routes-admin](img/routes-admin.png)
 
+**code routes admin**
+```php
+$routes->group('admin', function($routes) {
+    $routes->get('artikel', 'Artikel::admin_index');
+    $routes->add('artikel/add', 'Artikel::add');
+    $routes->add('artikel/edit/(:any)', 'Artikel::edit/$1');
+    $routes->get('artikel/delete/(:any)', 'Artikel::delete/$1');
+  });
+```
+
+* Setelah itu buat **Template header** dan **footer** baru untuk **Halaman Admin**. Buat file baru dengan nama **admin_header.php** pada direktori **app/view/template**
+
+![admin-header](img/admin_header.png)
+
+**code admin_header.php**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $title; ?></title>
+    <link rel="stylesheet" href="<?= base_url('/admin.css');?>">
+</head>
+<body>
+    <div id="container">
+    <header>
+        <h1>Admin Portal Berita</h1>
+    </header>
+    <nav>
+    <a href="<?= base_url('/admin/artikel');?>" class="active">Dashboard</a>
+        <a href="<?= base_url('/artikel');?>">Artikel</a>
+        <a href="<?= base_url('/admin/artikel/add');?>">Tambah Artikel</a>
+    </nav>
+    <section id="wrapper">
+        <section id="main">
+```
+
+* Dan buat file baru lagi dengan nama **admin_footer.php** pada direktori **app/views/template** 
+
+![admin-footer](img/admin_footer.png)
+
+**code admin_footer.php**
+```html
+<footer>
+        <p>&copy; 2022 - Universitas Pelita Bangsa</p>
+    </footer>
+    </div>
+</body>
+</html>
+```
+
+* Kemudian buat file baru lagi dengan nama **admin.css** pada direktori **ci4/public** untuk mempercantik tampilan **Halaman admin.**
+
+![admin-css](img/admin-css.png)
+
+* Akses menu admin dengan URL: http://localhost:8080/admin/artikel
+
+Maka tampilannya akan seperti gambar dibawah
+
+![admin-view](img/admin-view.png)
+
+## 11). MENAMBAHKAN DATA ARTIKEL
+Tambahkan fungsi/method baru pada **Controllers Artikel** dengan nama **add().**
+
+![function-add](img/function-add.png)
+
+**code function add**
+```php
+public function add()
+    {
+        // validasi data.
+        $validation = \Config\Services::validation();
+        $validation->setRules(['judul' => 'required']);
+        $isDataValid = $validation->withRequest($this->request)->run();
+        
+        if ($isDataValid)
+        {
+            $artikel = new ArtikelModel();
+            $artikel->insert([
+                'judul' => $this->request->getPost('judul'),
+                'isi' => $this->request->getPost('isi'),
+                'slug' => url_title($this->request->getPost('judul')),]);
+            return redirect('admin/artikel');
+        }
+        $title = "Tambah Artikel";
+        return view('artikel/form_add', compact('title'));
+    }
+```
+
+* Kemudian buat view untuk form tambah dengan nama **form_add.php** 
+
+![form-add](img/form_add.png)
+
+**code form_add.php**
+```html
+<?= $this->include('template/admin_header'); ?>
+
+<h2><?= $title; ?></h2>
+<form action="" method="post">
+    <p>
+        <input type="text" name="judul">
+    </p>
+    <p>
+        <textarea name="isi" cols="50" rows="10"></textarea>
+    </p>
+    <p><input type="submit" value="Kirim" class="btn btn-large"></p>
+</form>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+
+Kemudian refresh kembali pada browser dan tampilannya akan seperti gambar dibawah.
 
 
 
