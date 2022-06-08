@@ -684,8 +684,93 @@ public function add()
 <?= $this->include('template/admin_footer'); ?>
 ```
 
-Kemudian refresh kembali pada browser dan tampilannya akan seperti gambar dibawah.
+* Kemudian klik menu **Tambah Artikel** dan tampilannya akan seperti gambar dibawah.
 
+![tambah-artikel](img/tambah-artikel.png)
+
+## 12). MENGUBAH DATA
+Tambahkan fungsi/method baru pada **Controllers Artikel** dengan nama **edit().**
+
+![function-edit](img/function-edit.png)
+
+**code function edit**
+```php
+public function edit($id)
+    {
+        $artikel = new ArtikelModel();
+
+        // validasi data.
+        $validation = \Config\Services::validation();
+        $validation->setRules(['judul' => 'required']);
+        $isDataValid = $validation->withRequest($this->request)->run();
+        
+        if ($isDataValid)
+        {
+            $artikel->update($id, [
+                'judul' => $this->request->getPost('judul'),
+                'isi' => $this->request->getPost('isi'),]);
+            return redirect('admin/artikel');
+        }
+
+        // ambil data lama
+        $data = $artikel->where('id', $id)->first();
+        $title = "Edit Artikel";
+        return view('artikel/form_edit', compact('title', 'data'));
+    }
+```
+
+* Kemudian buat view untuk form tambah dengan nama **form_edit.php**
+
+![form-edit](img/form-edit.png)
+
+**code form_edit.php**
+```html
+<?= $this->include('template/admin_header'); ?>
+
+<h2><?= $title; ?></h2>
+<form action="" method="post">
+    <p><input type="text" name="judul" value="<?= $data['judul'];?>" ></p>
+    <p><textarea name="isi" cols="50" rows="10"><?=$data['isi'];?></textarea></p>
+    <p><input type="submit" value="Kirim" class="btn btn-large"></p>
+</form>
+
+<?= $this->include('template/admin_footer'); ?>
+```
+
+* Kemudian klik **ubah** pada salah satu artikel 
+
+![edit-artikel1](img/edit-artikel1.png)
+
+Di atas adalah contoh **ubah/edit** ***artikel pertama***
+
+Sementara dibawah adalah contoh **ubah/edit** ***artikel kedua*** 
+
+![edit-artikel2](img/edit-artikel2.png)
+
+## 13). MENGHAPUS DATA
+Tambahkan fungsi/method baru pada **Controllers Artikel** dengan nama **delete().**
+
+![function-delete()](img/function-delete.png)
+
+**PENJELASAN**
+
+Untuk hapus klik saja **hapus** maka artikel akan terhapus
+
+**code function delete**
+```php
+public function delete($id)
+    {
+        $artikel = new ArtikelModel();
+        $artikel->delete($id);
+        return redirect('admin/artikel');
+    }
+```
+
+## PERTANYAAN DAN TUGAS
+* Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+
+* Sudah melakukan langkah-langkah sesuai intruksi dan melakukan improvisasi pada bagian admin artikel dengan menambah css dan view
+![admin-view](img/admin-view.png)
 
 
 

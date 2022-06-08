@@ -1,0 +1,7 @@
+CRITICAL - 2022-06-07 23:46:39 --> Class 'App\Controllers\PageNotFoundException' not found
+#0 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(832): App\Controllers\Artikel->view('admin')
+#1 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Artikel))
+#2 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\public\index.php(37): CodeIgniter\CodeIgniter->run()
+#4 C:\xampp\htdocs\Lab11Web\lab11_php_ci\ci4\system\Commands\Server\rewrite.php(43): require_once('C:\\xampp\\htdocs...')
+#5 {main}
