@@ -772,6 +772,86 @@ public function delete($id)
 * Sudah melakukan langkah-langkah sesuai intruksi dan melakukan improvisasi pada bagian admin artikel dengan menambah css dan view
 ![admin-view](img/admin-view.png)
 
+ -----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+|   HERLIYANSYAH      |     312010387       |
+|---------------------|---------------------|
+|   TI.20.A.2         |     PEMROGRAMAN WEB |
+|   PERTEMUAN 14      |     PRAKTIKUM 13    |
+
+
+## PERTEMUAN 14
+
+## LAB 11 WEB (***MELANJUTKAN SEBELUMNYA***)
+
+## PRAKTIKUM 13 - FRAMEWORK LANJUTAN (MODUL LOGIN)
+
+Dipertemuan kali ini kita masih melanjutkan tugas sebelumnya namun kita akan membuat sekaligus mempelajari bagaimana membuat **System Login** dengan module login dalam **Framework CodeIgniter 4** 
+
+## LANGKAH - LANGKAH PRAKTIKUM
+
+## PERSIAPAN
+Untuk memulai membuat modul login, yang perlu disiapkan adalah database server menggunakan MySQL. Pastikan MySQL server sudah dapat dijalankan melalui XAMPP.
+
+## MEMBUAT TABEL: USER LOGIN
+
+## 1). MEMBUAT TABEL USER
+Buat Tabel User pada Database **lab_ci4**
+
+![Table-user](img/tabel-user.png)
+
+**PENJELASAN**
+
+Table berhasil dibuat
+
+**Table user**
+```MySQL
+CREATE TABLE user (
+  id INT(11) auto_increment,
+  username VARCHAR(200) NOT NULL,
+  useremail VARCHAR(200),
+  userpassword VARCHAR(200),
+  PRIMARY KEY(id)
+);
+```
+
+## 2). MEMBUAT MODEL USER
+Selanjutnya adalah membuat Model untuk memproses data Login. Buat file baru pada direktori **app/Models** dengan nama **UserModel.php**
+
+![user-model](img/user-models.png)
+
+**code UserModel.php**
+```php
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class UserModel extends Model
+{
+    protected $table = 'user';
+    protected $primaryKey = 'id';
+    protected $useAutoIncrement = true;
+    protected $allowedFields = ['username', 'useremail', 'userpassword'];
+}
+```
+
+## 3). MEMBUAT CONTROLLERS USER
+Buat Controllers baru dengan nama **User.php** pada direktori **app/Controllers.** Kemudian tambahkan method **index()** untuk menampilkan daftar user, dan method **login()** untuk proses login.
+
+
+
+
+
+
+
+
+
+
 
 
 
