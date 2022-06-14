@@ -1082,6 +1082,13 @@ Setelah itu akan dibawa ke halaman seperti dibawah.
 
 --------------------------------------------------------------------------------------------------------------------------------
 
+## PERTANYAAN DAN TUGAS
+* Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+
+* Sudah mengikuti dan menyelesaikan langkah-langkah yang ada dan melakukan improvisasi pada bagian **Tampilan Login** dengan menambahkan CSS 
+
+![tugas](img/ujicoba-login.png)
+
 
 
 ## UNTUK PERTEMUAN KALI INI CUKUP SAMPAI DISINI DAN SAMPAI BERTEMU DI PERTEMUAN BERIKUTNYA
