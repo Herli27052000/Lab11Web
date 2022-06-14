@@ -226,3 +226,45 @@ box img{
 .entry .right-img{
     float: right;
 }
+
+/* Login Wrapper */
+#login-wrapper {
+    align-items: center;
+    width: 500px;
+    margin: 10px;
+    margin-left: 30%;
+    margin-top: 50px;
+    padding: 20px;
+    box-shadow: 0 0 1em #cccccc;
+}
+
+/* Isi */
+h1{
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 40px ;
+}
+
+.form-control{
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #cccccc;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+button[type=submit]{
+    padding: 7px;
+    color: white;
+    background-color: rgb(44, 118, 148);
+    box-sizing: border-box;
+    font-size: 15px;
+    border-radius: 4px;
+    width: 120px;
+}
+
+button[type=submit]:active,
+button[type=submit]:hover{
+    opacity: 75%;
+}
