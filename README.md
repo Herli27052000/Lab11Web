@@ -1090,6 +1090,55 @@ Setelah itu akan dibawa ke halaman seperti dibawah.
 ![tugas](img/ujicoba-login.png)
 
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+|  HERLIYANSYAH         |  312010387            |
+|-----------------------|-----------------------|
+|  TI.20.A.2            |  PEMROGRAMAN WEB      |
+|  PERTEMUAN 15         |  PRAKTIKUM 14         |
+
+
+
+## PERTEMUAN 15
+
+## LAB 11 WEB (***MELANJUTKAN SEBELUMNYA***)
+
+## PRAKTIKUM 14 - FRAMEWORK LANJUTAN (PAGINATION DAN PENCARIAN)
+
+Dipertemuan kali ini kita masih melanjutkan tugas sebelumnya namun kita akan membuat dan juga mempelajari membuat konsep dasar pagination dan pencarian dalam **framework Codeigniter 4**
+
+
+## LANGKAH - LANGKAH PRAKTIKUM
+Pagination merupakan proses yang digunakan untuk membatasi tampilan yang panjang dari data yang banyak pada sebuah website. Fungsi pagination adalah memecah tampilan menjadi beberapa halaman  tergantung banyak nya data yang akan ditampilkan pada setiap halaman.
+
+Pada **Codeigniter 4** fungsi pagination sudah tersedia pada library sehingga cukup mudah menggunakannya.
+
+## 1). MEMBUAT PAGINATION
+Untuk membuat pagination,buka Kembali **Controllers Artikel**, kemudian modifikasi kode pada method **admin_index** seperti berikut.
+
+![paginate](img/paginate.png)
+
+**code paginate**
+```php
+public function admin_index()
+    {
+         $title = 'Daftar Artikel';
+         $model = new ArtikelModel();
+         $data = [
+           'title' => $title,
+           'artikel' => $model->paginate(10), #data dibatasi 10 record perhalaman
+           'pager' => $model->pager,
+         ];
+         return view('artikel/admin_index', $data);
+    }
+```
+
+* Kemudian buka file **views/artikel/admin_index.php** dan tambahkan kode berikut dibawah deklarasi tabel data.
+
+
+
+
+
 
 ## UNTUK PERTEMUAN KALI INI CUKUP SAMPAI DISINI DAN SAMPAI BERTEMU DI PERTEMUAN BERIKUTNYA
 

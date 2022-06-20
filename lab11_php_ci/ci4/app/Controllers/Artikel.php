@@ -30,10 +30,14 @@ class Artikel extends BaseController
     
     public function admin_index()
     {
-        $title = 'Daftar Artikel';
-        $model = new ArtikelModel();
-        $artikel = $model->findAll();
-        return view('artikel/admin_index', compact('artikel', 'title'));
+         $title = 'Daftar Artikel';
+         $model = new ArtikelModel();
+         $data = [
+           'title' => $title,
+           'artikel' => $model->paginate(10), #data dibatasi 10 record perhalaman
+           'pager' => $model->pager,
+         ];
+         return view('artikel/admin_index', $data);
     }
 
     public function add()
