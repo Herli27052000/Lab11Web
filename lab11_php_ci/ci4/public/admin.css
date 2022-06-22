@@ -143,3 +143,70 @@ h2{
     margin-top: 20px;
     margin-left: 20px;
 }
+
+
+/* PAGINATION */
+.pagination {
+    display: inline-block;
+    padding-left: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+}
+  
+.pagination > li {
+    display: inline;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    position: relative;
+    float: left;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.5;
+    color: #0275d8;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #0275d8;
+    border-color: #0275d8;
+}
+
+/* SEARCH */
+.form-search input[type=text]{
+    width: 27%;
+    border: 2px solid gray;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin: 30px;
+    margin-bottom: 10px;
+}
+
+.btn-primary{
+    background-color: rgb(30, 117, 216);
+    color: white;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin: auto;   
+}
+
+.btn-primary:active,
+.btn-primary:hover{
+    opacity: 80%;
+}
+
+/* INPUT GAMBAR */
+input[type=file]{
+    margin: 20px;
+}

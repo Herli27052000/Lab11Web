@@ -1135,12 +1135,149 @@ public function admin_index()
 
 * Kemudian buka file **views/artikel/admin_index.php** dan tambahkan kode berikut dibawah deklarasi tabel data.
 
+![pager-links](img/pagerlink.png)
+
+```php
+<?= $pager->links(); ?>
+```
+
+* Selanjutnya buka kembali menu daftar artikel, tambahkan data lagi untuk melihat hasilnya.
+
+![page1](img/page1.png)
+
+Di atas adalah **page 1** sementara dibawah adalah **page 2** dimana saya meminta paginate min adalah 2 sementara data adalah 4
+
+![page2](img/page2.png)
+
+* Sebelumnya tambahkan terlebih dahulu **CSS** di **public/admin.css** untuk mempercantik tampilan **pagination**
+
+## 2). MEMBUAT PENCARIAN
+Pencarian data digunakan untuk memfilter data.
+
+* Untuk membuat pencarian data, buka kembali **Controllers Artikel,** pada method **admin_index** ubah kode nya seperti berikut
+
+![search](img/search.png)
+
+perubahan isi function
+```php
+public function admin_index()
+    {
+	      $title = 'Daftar Artikel';
+	      $q = $this->request->getVar('q') ?? '';
+	      $model = new ArtikelModel();
+	      $data = [
+	           'title' => $title,
+	           'q' => $q,
+	           'artikel' => $model->like('judul', $q)->paginate(2), # data dibatasi 2 record per halaman
+	           'pager' => $model->pager,
+	         ];
+	      return view('artikel/admin_index', $data);
+    }
+```
+
+* Kemudian buka kembali file **views/artikel/admin_index.php** dan tambahkan form pencarian sebelum deklarasi tabel seperti berikut:
+
+![cari-data](img/cari-data.png)
+
+```html
+<form method="get" class="form-search">
+   <input type="text" name="q" value="<?= $q; ?>" placeholder="Cari data">
+   <input type="submit" value="Cari" class="btn btn-primary">
+</form>
+```
+
+* Dan pada link pager ubah seperti berikut.
+![qlinks](img/qlinks.png)
+
+```php
+<?= $pager->only(['q'])->links(); ?>
+```
+
+Selanjutnya ujicoba dengan membuka kembali halaman admin artikel, masukan kata kunci tertentu pada form pencarian.
+
+![pencarian](img/pencarian.png)
+
+* Dan saya akan memasukan kata kunci untuk mencari artikel yang ingin saya cari dipencarian,gambar nya akan seperti dibawah.
+
+![pencarian2](img/pencarian2.png)
+
+* Sebelum itu tambahkan CSS pada file **admin.css** untuk mempercantik bagian ***search***
+
+## 3). UPLOAD GAMBAR
+Menambahkan fungsi unggah gambar pada tambah artikel. Buka kembali **Controllers Artikel**, sesuaikan kode pada method **add** seperti berikut:
+
+![function](img/function.png)
+
+**perubahan code add**
+```php
+ public function add()
+    {
+        // validasi data.
+        $validation = \Config\Services::validation();
+        $validation->setRules(['judul' => 'required']);
+        $isDataValid = $validation->withRequest($this->request)->run();
+        
+        if ($isDataValid)
+        {
+            $file = $this->request->getFile('gambar');
+            $file->move(ROOTPATH . 'public/gambar');
+            
+            $artikel = new ArtikelModel();
+            $artikel->insert([
+                'judul' => $this->request->getPost('judul'),
+                'isi' => $this->request->getPost('isi'),
+                'slug' => url_title($this->request->getPost('judul')),
+                'gambar' => $file->getName(),
+            ]);
+            return redirect('admin/artikel');
+        }
+        $title = "Tambah Artikel";
+        return view('artikel/form_add', compact('title'));
+    }
+```
+
+* Kemudian pada file **views/artikel/form_add.php** tambahkan field input file seperti berikut.
+
+![input-form](img/input-form.png)
+
+```html
+    <p>
+      <input type="file" name="gambar">
+    </p>
+```
+
+* Dan sesuaikan tag form dengan menambahkan *ecrypt type* seperti berikut.
+
+![input-form](img/input-form.png)
+
+```html
+<form action="" method="post" enctype="multipart/form-data">
+```
+
+* Uji coba file upload dengan mengakses menu tambah artikel.
+
+![upload-gambar](img/upload-gambar.png)
+
+**PENJELASAN**
+
+klik Choose file dan pilih gambar yang anda mau jika sudah dipilih,lalu tambahkan judul artikel dan juga deskripsi artikel,kemudian klik kirim maka artikel dan gambar nya akan terupload,sekian.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
+## PERTANYAAN DAN TUGAS
+Selesaikan programnya sesuai langkah-langkah yang ada. anda boleh melakukan improvisasi.
 
+* Saya sudah mengikuti langkah-langkah praktikum dan juga melakukan improvisasi pada bagian **pagination** dan **search**
 
-## UNTUK PERTEMUAN KALI INI CUKUP SAMPAI DISINI DAN SAMPAI BERTEMU DI PERTEMUAN BERIKUTNYA
+![page](img/page1.png)
+![searching](img/pencarian2.png)
+
+---------------------------------------------------------------------------
+## TUGAS TERAKHIR PERTEMUAN 15
+## TERIMAKASIH UNTUK ILMU NYA
+## SELAMAT MENEMPUH UJIAN AKHIR SEMESTER (UAS) SEMESTER 4
 
 ## TERIMAKASIH
 
